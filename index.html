@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -180,7 +181,7 @@
                     ${createToolCard({link: "#/tools/paypal-calculator", icon: iconPayPal, title: "Calculadora de Comisiones PayPal", description: "Calcula cuánto necesitas enviar para que llegue una cantidad exacta, o cuánto recibirás."})}
                 </div>
                 <div class="w-full max-w-sm">
-                    ${createToolCard({link: "#/tools/mini-paint", icon: iconPaint, title: "Mini Paint", description: "Dibuja libremente en este lienzo digital. Incluye pinceles, colores y más."})}
+                    ${createToolCard({link: "#/tools/paint-online", icon: iconPaint, title: "Paint Online", description: "Da vida a tus ideas con este lienzo digital. Herramientas de dibujo, colores y más."})}
                 </div>
             </div>
           </section>
@@ -247,7 +248,7 @@
         const iconDownload = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>`;
 
         return `
-            <div class="w-full h-full flex flex-col bg-base-100 rounded-2xl shadow-2xl overflow-hidden" style="height: calc(100vh - 12rem);">
+            <div class="w-full h-full flex flex-col bg-base-100 rounded-2xl shadow-2xl overflow-hidden" style="height: calc(100vh - 8.5rem);">
                 <div id="paint-toolbar" class="p-2 bg-base-200 border-b border-secondary/50 flex flex-wrap items-center gap-x-3 gap-y-2">
                     <!-- Tools -->
                     <div class="flex items-center gap-1 p-1 bg-base-100/50 rounded-md">
@@ -773,11 +774,11 @@
             title: "Calculadora Visual de Hectáreas",
             description: "Visualiza y calcula el área de un terreno en hectáreas. Ajusta la forma del polígono de manera interactiva."
         },
-        '/tools/mini-paint': {
+        '/tools/paint-online': {
             page: createMiniPaintPage,
             listeners: attachMiniPaintListeners,
-            title: "Mini Paint - Herramienta de Dibujo",
-            description: "Un lienzo de dibujo simple y potente para tus ideas. Dibuja, colorea y exporta tus creaciones fácilmente."
+            title: "Paint Online - Herramienta de Dibujo",
+            description: "Da vida a tus ideas con nuestro lienzo de dibujo online. Herramientas potentes, interfaz simple y exportación fácil."
         }
     };
     
