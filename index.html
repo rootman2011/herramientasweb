@@ -43,6 +43,14 @@
     #app-main-content {
         min-height: calc(100vh - 64px - 85px); /* Full height minus header and footer */
     }
+    /* Estilos específicos para el input de color para que el padding no lo oculte */
+    input[type="color"]::-webkit-color-swatch-wrapper {
+        padding: 0;
+    }
+    input[type="color"]::-webkit-color-swatch {
+        border: none;
+        border-radius: 50%;
+    }
   </style>
   <script>
     tailwind.config = {
@@ -114,7 +122,7 @@
                 </div>
                 <button id="theme-switcher" class="p-2 rounded-full text-base-content hover:bg-secondary/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-base-100 focus:ring-primary"
         aria-label="Cambiar tema">
-                    <span id="theme-icon"></span>
+                    <span id="theme-icon-container"></span>
                 </button>
               </div>
             </div>
@@ -140,7 +148,7 @@
     const createHomePage = () => {
       const iconHectare = `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" /></svg>`;
       const iconPayPal = `<svg class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round"><path d="M10 3h5.5C18.537 3 21 5.463 21 8.5S18.537 14 15.5 14H10v7H7V3h3zm3.5 8c1.38 0 2.5-1.12 2.5-2.5S14.88 6 13.5 6H10v5h3.5z" /><line x1="12" y1="1" x2="12" y2="23" strokeWidth="3.5" class="stroke-base-100" /><line x1="12" y1="1" x2="12" y2="23" strokeWidth="1.5" stroke="currentColor" /></svg>`;
-      const iconPaint = `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>`;
+      const iconPaint = `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z"></path></svg>`;
 
       const createToolCard = ({link, icon, title, description}) => `
           <a href="${link}" class="block bg-base-100 p-8 rounded-xl shadow-lg hover:shadow-primary/20 hover:scale-105 transition-all duration-300 h-full">
@@ -172,7 +180,7 @@
                     ${createToolCard({link: "#/tools/paypal-calculator", icon: iconPayPal, title: "Calculadora de Comisiones PayPal", description: "Calcula cuánto necesitas enviar para que llegue una cantidad exacta, o cuánto recibirás."})}
                 </div>
                 <div class="w-full max-w-sm">
-                    ${createToolCard({link: "#/tools/paint-app", icon: iconPaint, title: "Mini Paint", description: "Una herramienta de dibujo sencilla para bocetos rápidos. Elige colores, pinceles y tamaños."})}
+                    ${createToolCard({link: "#/tools/mini-paint", icon: iconPaint, title: "Mini Paint", description: "Dibuja libremente en este lienzo digital. Incluye pinceles, colores y más."})}
                 </div>
             </div>
           </section>
@@ -219,6 +227,60 @@
             </div>
         `;
     };
+    
+    const createHectareCalculatorPage = () => {
+        return `
+            <div class="w-full max-w-6xl mx-auto bg-base-100 rounded-2xl shadow-2xl shadow-base-200/80 overflow-hidden relative">
+                <!-- Content will be populated by JS -->
+            </div>
+        `;
+    }
+
+    const createMiniPaintPage = () => {
+        const iconBrush = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z"></path></svg>`;
+        const iconSpray = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM9 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM6 15a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm13-8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM5 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm12 2a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-4-7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm9-6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-8-3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path></svg>`;
+        const iconEraser = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>`;
+        const iconSize = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>`;
+        const iconUndo = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"></path></svg>`;
+        const iconRedo = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"></path></svg>`;
+        const iconClear = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+        const iconDownload = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>`;
+
+        return `
+            <div class="w-full h-full flex flex-col bg-base-100 rounded-2xl shadow-2xl overflow-hidden" style="height: calc(100vh - 12rem);">
+                <div id="paint-toolbar" class="p-2 bg-base-200 border-b border-secondary/50 flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <!-- Tools -->
+                    <div class="flex items-center gap-1 p-1 bg-base-100/50 rounded-md">
+                        <button id="tool-brush" class="p-2 rounded-md hover:bg-primary/20" aria-label="Pincel" title="Pincel">${iconBrush}</button>
+                        <button id="tool-spray" class="p-2 rounded-md hover:bg-primary/20" aria-label="Aerógrafo" title="Aerógrafo">${iconSpray}</button>
+                        <button id="tool-eraser" class="p-2 rounded-md hover:bg-primary/20" aria-label="Goma de borrar" title="Goma de borrar">${iconEraser}</button>
+                    </div>
+                    <div class="h-6 border-l border-secondary/30"></div>
+                    <!-- Brush Size & Color -->
+                    <div class="flex items-center gap-3 p-1">
+                        <label for="brush-size" class="text-base-content" title="Tamaño del pincel">${iconSize}</label>
+                        <input type="range" id="brush-size" min="1" max="100" value="10" class="w-24 cursor-pointer">
+                        <span id="brush-size-value" class="text-sm font-mono w-6 text-center">10</span>
+                        <input type="color" id="color-picker" value="#000000" class="w-8 h-8 p-0 border-none rounded-full cursor-pointer bg-transparent" title="Selector de color">
+                    </div>
+                    <div class="h-6 border-l border-secondary/30"></div>
+                    <!-- Actions -->
+                    <div class="flex items-center gap-1 p-1">
+                         <button id="action-undo" class="p-2 rounded-md hover:bg-primary/20" aria-label="Deshacer" title="Deshacer">${iconUndo}</button>
+                         <button id="action-redo" class="p-2 rounded-md hover:bg-primary/20" aria-label="Rehacer" title="Rehacer">${iconRedo}</button>
+                         <button id="action-clear" class="p-2 rounded-md hover:bg-primary/20 text-red-500" aria-label="Limpiar Lienzo" title="Limpiar Lienzo">${iconClear}</button>
+                    </div>
+                     <div class="h-6 border-l border-secondary/30"></div>
+                     <div class="flex items-center gap-1 p-1">
+                         <button id="action-download" class="p-2 rounded-md hover:bg-primary/20" aria-label="Descargar" title="Descargar">${iconDownload}</button>
+                    </div>
+                </div>
+                <div class="flex-grow w-full h-full relative bg-white cursor-crosshair">
+                    <canvas id="paint-canvas"></canvas>
+                </div>
+            </div>
+        `;
+    }
     
     // --- EVENT LISTENERS ATTACHMENT ---
     
@@ -278,16 +340,9 @@
         receiveInput.addEventListener('blur', (e) => updateInputs('receive', e.target.value || '0.00'));
     };
     
-    const createHectareCalculatorPage = () => {
-        return `
-            <div class="w-full max-w-6xl mx-auto bg-base-100 rounded-2xl shadow-2xl shadow-base-200/80 overflow-hidden relative">
-                <!-- Content will be populated by JS -->
-            </div>
-        `;
-    }
-
     const attachHectareListeners = () => {
         const container = $('.w-full.max-w-6xl.mx-auto');
+        if(!container) return;
         
         let language = 'es';
         let points = [];
@@ -360,8 +415,8 @@
                                 <label for="hectares-input" class="block text-sm font-medium text-base-content mb-2">${t.hectaresLabel}</label>
                                 <input type="number" id="hectares-input" value="${inputValue}" placeholder="${t.hectaresPlaceholder}" class="w-full p-4 bg-base-200 border border-secondary/50 rounded-lg text-xl focus:ring-2 focus:ring-primary focus:border-primary transition duration-150 ease-in-out">
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="sm:col-span-2">${infoCard({ title: t.hectaresArea, value: formatHectares(area / 10000), unit: t.hectaresUnitShort, icon: iconArea })}</div>
+                            <div class="grid grid-cols-2 gap-4">
+                                ${infoCard({ title: t.hectaresArea, value: formatHectares(area / 10000), unit: t.hectaresUnitShort, icon: iconArea })}
                                 ${infoCard({ title: t.totalArea, value: formatNumber(area), unit: "m²", icon: iconArea })}
                                 ${infoCard({ title: t.maxWidth, value: formatNumber(dimensions.width), unit: t.metersUnit, icon: iconWidth })}
                                 ${infoCard({ title: t.maxLength, value: formatNumber(dimensions.height), unit: t.metersUnit, icon: iconLength })}
@@ -478,10 +533,10 @@
         };
         
         const attachInternalListeners = () => {
-            $('#lang-es').addEventListener('click', () => { language = 'es'; render(); });
-            $('#lang-en').addEventListener('click', () => { language = 'en'; render(); });
+            $('#lang-es')?.addEventListener('click', () => { language = 'es'; render(); });
+            $('#lang-en')?.addEventListener('click', () => { language = 'en'; render(); });
             
-            $('#hectares-input').addEventListener('input', (e) => {
+            $('#hectares-input')?.addEventListener('input', (e) => {
                 inputValue = e.target.value;
                 const numHectares = parseFloat(inputValue.replace(',', '.'));
                 if (!isNaN(numHectares) && numHectares >= 0) {
@@ -508,223 +563,195 @@
         render();
     };
 
-    const createPaintAppPage = () => {
-        const iconBrush = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z" /></svg>`;
-        const iconSpray = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>`;
-        const iconEraser = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 000-2.828l-7-7a2 2 0 00-2.828 0l-7 7a2 2 0 002.828 2.828l7-7 7 7z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 000-2.828l-7-7a2 2 0 00-2.828 0l-7 7a2 2 0 002.828 2.828l7-7 7 7zM3 19l18-18" /></svg>`;
-        const iconUndo = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h10a8 8 0 018 8v2M3 10l4-4m-4 4l4 4" /></svg>`;
-        const iconRedo = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 10h-10a8 8 0 00-8 8v2m18-10l-4-4m4 4l-4 4" /></svg>`;
-        const iconClear = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>`;
-        const iconDownload = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>`;
-
-        return `
-            <div class="flex flex-col h-full bg-base-100 rounded-2xl shadow-2xl overflow-hidden">
-                <div id="paint-toolbar" class="flex flex-wrap items-center gap-4 p-3 bg-base-200 border-b border-secondary/50 shadow-sm z-10">
-                    <!-- Tools -->
-                    <div class="flex items-center space-x-1 bg-base-100 p-1 rounded-lg">
-                        <button data-tool="brush" class="tool-btn p-2 rounded-md bg-primary text-white" title="Pincel">${iconBrush}</button>
-                        <button data-tool="spray" class="tool-btn p-2 rounded-md" title="Aerógrafo">${iconSpray}</button>
-                        <button data-tool="eraser" class="tool-btn p-2 rounded-md" title="Goma de borrar">${iconEraser}</button>
-                    </div>
-                    <!-- Color -->
-                    <div class="flex items-center space-x-2">
-                        <label for="color-picker" class="sr-only">Color</label>
-                        <input type="color" id="color-picker" value="#0D9488" class="h-10 w-10 p-1 bg-base-100 rounded-md cursor-pointer border border-secondary/50" title="Selector de color">
-                    </div>
-                    <!-- Brush Size -->
-                    <div class="flex items-center space-x-2 flex-1 min-w-[150px]">
-                        <label for="brush-size" class="sr-only">Tamaño del pincel</label>
-                        <input type="range" id="brush-size" min="1" max="100" value="10" class="w-full h-2 bg-base-100 rounded-lg appearance-none cursor-pointer" title="Tamaño del pincel">
-                        <span id="brush-size-label" class="text-sm font-mono w-8 text-center">10</span>
-                    </div>
-                    <!-- Actions -->
-                    <div class="flex items-center space-x-1 bg-base-100 p-1 rounded-lg ml-auto">
-                        <button id="undo-btn" class="action-btn p-2 rounded-md" title="Deshacer">${iconUndo}</button>
-                        <button id="redo-btn" class="action-btn p-2 rounded-md" title="Rehacer">${iconRedo}</button>
-                        <button id="clear-btn" class="action-btn p-2 rounded-md" title="Limpiar lienzo">${iconClear}</button>
-                        <button id="download-btn" class="action-btn p-2 rounded-md text-primary" title="Descargar">${iconDownload}</button>
-                    </div>
-                </div>
-                <div class="flex-grow relative bg-gray-400 dark:bg-gray-700">
-                    <canvas id="paint-canvas" class="absolute top-0 left-0 w-full h-full cursor-crosshair"></canvas>
-                </div>
-            </div>
-        `;
-    };
-
-    const attachPaintAppListeners = () => {
+    const attachMiniPaintListeners = () => {
         const canvas = $('#paint-canvas');
-        const ctx = canvas.getContext('2d');
-        const toolbar = $('#paint-toolbar');
         const colorPicker = $('#color-picker');
         const brushSizeSlider = $('#brush-size');
-        const brushSizeLabel = $('#brush-size-label');
-        const toolBtns = $$('.tool-btn');
-        const undoBtn = $('#undo-btn');
-        const redoBtn = $('#redo-btn');
-        const clearBtn = $('#clear-btn');
-        const downloadBtn = $('#download-btn');
+        const brushSizeValue = $('#brush-size-value');
+        const toolButtons = {
+            brush: $('#tool-brush'),
+            spray: $('#tool-spray'),
+            eraser: $('#tool-eraser'),
+        };
+        const actionButtons = {
+            undo: $('#action-undo'),
+            redo: $('#action-redo'),
+            clear: $('#action-clear'),
+            download: $('#action-download'),
+        };
 
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
         let isDrawing = false;
-        let currentTool = 'brush';
         let lastX = 0;
         let lastY = 0;
-        let history = [];
-        let historyStep = -1;
+        
+        let state = {
+            color: '#000000',
+            brushSize: 10,
+            tool: 'brush' // 'brush', 'spray', 'eraser'
+        };
 
-        // Set initial canvas size
-        function resizeCanvas() {
-            const tempImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            ctx.putImageData(tempImageData, 0, 0);
-            // Re-apply settings
-            ctx.strokeStyle = colorPicker.value;
-            ctx.lineWidth = brushSizeSlider.value;
+        let history = [];
+        let historyIndex = -1;
+
+        const resizeCanvas = () => {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const parent = canvas.parentElement;
+            canvas.width = parent.clientWidth;
+            canvas.height = parent.clientHeight;
+            ctx.putImageData(imageData, 0, 0);
+            // Re-apply settings after resize
+            applyBrushSettings();
+        };
+
+        const applyBrushSettings = () => {
+            ctx.strokeStyle = state.color;
+            ctx.fillStyle = state.color;
+            ctx.lineWidth = state.brushSize;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
-        }
+            ctx.globalCompositeOperation = state.tool === 'eraser' ? 'destination-out' : 'source-over';
+        };
 
-        function saveState() {
-            // Clear future history
-            if (historyStep < history.length - 1) {
-                history = history.slice(0, historyStep + 1);
+        const saveState = () => {
+            if (historyIndex < history.length - 1) {
+                history.splice(historyIndex + 1);
             }
             history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-            historyStep++;
-            updateUndoRedoButtons();
-        }
+            historyIndex++;
+            updateUndoRedo();
+        };
+
+        const restoreState = (index) => {
+            if (index < 0 || index >= history.length) return;
+            ctx.putImageData(history[index], 0, 0);
+        };
         
-        function restoreState(step) {
-            ctx.putImageData(history[step], 0, 0);
-        }
+        const updateUndoRedo = () => {
+            actionButtons.undo.disabled = historyIndex <= 0;
+            actionButtons.redo.disabled = historyIndex >= history.length - 1;
+            actionButtons.undo.classList.toggle('opacity-50', actionButtons.undo.disabled);
+            actionButtons.redo.classList.toggle('opacity-50', actionButtons.redo.disabled);
+        };
 
-        function updateUndoRedoButtons() {
-            undoBtn.disabled = historyStep <= 0;
-            redoBtn.disabled = historyStep >= history.length - 1;
-            undoBtn.classList.toggle('opacity-50', undoBtn.disabled);
-            redoBtn.classList.toggle('opacity-50', redoBtn.disabled);
-        }
-
-        function getMousePos(e) {
+        const getCoords = (e) => {
             const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
             return {
                 x: clientX - rect.left,
-                y: clientY - rect.top
+                y: clientY - rect.top,
             };
-        }
+        };
 
-        function startDrawing(e) {
-            e.preventDefault();
+        const startDrawing = (e) => {
             isDrawing = true;
-            const pos = getMousePos(e);
-            [lastX, lastY] = [pos.x, pos.y];
-            draw(e);
-        }
-
-        function draw(e) {
-            if (!isDrawing) return;
-            e.preventDefault();
+            const { x, y } = getCoords(e);
+            [lastX, lastY] = [x, y];
             
-            ctx.lineWidth = brushSizeSlider.value;
-            ctx.strokeStyle = colorPicker.value;
-            
-            if (currentTool === 'brush' || currentTool === 'eraser') {
-                 ctx.globalCompositeOperation = currentTool === 'eraser' ? 'destination-out' : 'source-over';
-                 const pos = getMousePos(e);
-                 ctx.beginPath();
-                 ctx.moveTo(lastX, lastY);
-                 ctx.lineTo(pos.x, pos.y);
-                 ctx.stroke();
-                 [lastX, lastY] = [pos.x, pos.y];
-            } else if (currentTool === 'spray') {
-                 ctx.globalCompositeOperation = 'source-over';
-                 const pos = getMousePos(e);
-                 const radius = brushSizeSlider.value / 2;
-                 const density = 50;
-                 for (let i = 0; i < density; i++) {
-                     const offset = {
-                         x: Math.random() * 2 * radius - radius,
-                         y: Math.random() * 2 * radius - radius
-                     };
-                     if (offset.x * offset.x + offset.y * offset.y <= radius * radius) {
-                         ctx.fillRect(pos.x + offset.x, pos.y + offset.y, 1, 1);
-                     }
-                 }
-                 ctx.fillStyle = colorPicker.value;
+            if (state.tool === 'spray') {
+                // For spray, we need a timer
+                sprayInterval = setInterval(() => draw(e), 50);
             }
-        }
-        
-        function stopDrawing() {
+        };
+
+        const draw = (e) => {
+            if (!isDrawing) return;
+            const { x, y } = getCoords(e);
+            
+            applyBrushSettings();
+
+            if (state.tool === 'brush' || state.tool === 'eraser') {
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            } else if (state.tool === 'spray') {
+                const radius = state.brushSize;
+                for (let i = 0; i < 20; i++) {
+                    const angle = Math.random() * 2 * Math.PI;
+                    const distance = Math.random() * radius;
+                    ctx.fillRect(
+                        x + Math.cos(angle) * distance, 
+                        y + Math.sin(angle) * distance, 
+                        1, 1
+                    );
+                }
+            }
+            [lastX, lastY] = [x, y];
+        };
+
+        const stopDrawing = () => {
             if (!isDrawing) return;
             isDrawing = false;
-            ctx.beginPath(); // Reset the path
+            if(state.tool === 'spray') clearInterval(sprayInterval);
             saveState();
-        }
+        };
         
+        const setActiveTool = (tool) => {
+            state.tool = tool;
+            Object.values(toolButtons).forEach(btn => btn.classList.remove('bg-primary/20', 'text-primary'));
+            toolButtons[tool].classList.add('bg-primary/20', 'text-primary');
+        }
+
         // --- Event Listeners ---
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseout', stopDrawing);
-        canvas.addEventListener('touchstart', startDrawing, { passive: false });
-        canvas.addEventListener('touchmove', draw, { passive: false });
+
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e); }, { passive: false });
+        canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); }, { passive: false });
         canvas.addEventListener('touchend', stopDrawing);
 
-        colorPicker.addEventListener('change', (e) => ctx.strokeStyle = e.target.value);
-        
+        colorPicker.addEventListener('input', (e) => { state.color = e.target.value; });
         brushSizeSlider.addEventListener('input', (e) => {
-            brushSizeLabel.textContent = e.target.value;
-            ctx.lineWidth = e.target.value;
+            state.brushSize = e.target.value;
+            brushSizeValue.textContent = e.target.value;
         });
 
-        toolBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                currentTool = btn.dataset.tool;
-                toolBtns.forEach(b => b.classList.remove('bg-primary', 'text-white'));
-                btn.classList.add('bg-primary', 'text-white');
-            });
+        Object.entries(toolButtons).forEach(([toolName, button]) => {
+            button.addEventListener('click', () => setActiveTool(toolName));
         });
 
-        clearBtn.addEventListener('click', () => {
+        actionButtons.clear.addEventListener('click', () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             saveState();
         });
 
-        undoBtn.addEventListener('click', () => {
-            if (historyStep > 0) {
-                historyStep--;
-                restoreState(historyStep);
-                updateUndoRedoButtons();
-            }
-        });
-        
-        redoBtn.addEventListener('click', () => {
-            if (historyStep < history.length - 1) {
-                historyStep++;
-                restoreState(historyStep);
-                updateUndoRedoButtons();
-            }
-        });
-        
-        downloadBtn.addEventListener('click', () => {
+        actionButtons.download.addEventListener('click', () => {
             const link = document.createElement('a');
-            link.download = 'dibujo.png';
+            link.download = 'mi-dibujo.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
-
+        
+        actionButtons.undo.addEventListener('click', () => {
+            if(historyIndex > 0) {
+                historyIndex--;
+                restoreState(historyIndex);
+                updateUndoRedo();
+            }
+        });
+        
+        actionButtons.redo.addEventListener('click', () => {
+            if(historyIndex < history.length - 1) {
+                historyIndex++;
+                restoreState(historyIndex);
+                updateUndoRedo();
+            }
+        });
+        
+        window.addEventListener('resize', resizeCanvas);
+        
         // --- Initialization ---
-        const resizeObserver = new ResizeObserver(resizeCanvas);
-        resizeObserver.observe(canvas.parentElement);
+        let sprayInterval;
         resizeCanvas();
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0,0,canvas.width, canvas.height);
+        setActiveTool('brush');
         saveState(); // Save initial blank state
     };
-
 
     // --- ROUTER ---
     const routes = {
@@ -746,11 +773,11 @@
             title: "Calculadora Visual de Hectáreas",
             description: "Visualiza y calcula el área de un terreno en hectáreas. Ajusta la forma del polígono de manera interactiva."
         },
-        '/tools/paint-app': {
-            page: createPaintAppPage,
-            listeners: attachPaintAppListeners,
+        '/tools/mini-paint': {
+            page: createMiniPaintPage,
+            listeners: attachMiniPaintListeners,
             title: "Mini Paint - Herramienta de Dibujo",
-            description: "Una herramienta de dibujo ligera y sencilla para bocetos rápidos. Elige colores, pinceles y tamaños."
+            description: "Un lienzo de dibujo simple y potente para tus ideas. Dibuja, colorea y exporta tus creaciones fácilmente."
         }
     };
     
@@ -762,15 +789,15 @@
         mainContent.innerHTML = route.page();
         
         if (route.listeners) {
-            route.listeners();
+            setTimeout(route.listeners, 0); // Use timeout to ensure DOM is ready
         }
 
         updateMetadata(route.title, route.description);
         
-        $$('header a').forEach(a => a.classList.remove('bg-primary', 'text-white'));
-        if (path === '/') {
-            const homeNav = $('#nav-home');
-            if(homeNav) homeNav.classList.add('bg-primary', 'text-white');
+        $$('header a').forEach(a => a.classList.remove('bg-primary/20', 'text-base-content'));
+        const activeLink = $(`header a[href="#${path}"]`);
+        if (activeLink) {
+            activeLink.classList.add('bg-primary/20', 'text-base-content');
         }
     };
 
@@ -780,20 +807,18 @@
         
         app.innerHTML = `
             ${createHeader()}
-            <main id="app-main-content" class="container mx-auto px-4 py-8 md:py-12 flex-grow">
-                <!-- Content is rendered by the router here -->
+            <main id="app-main-content" class="flex-grow container mx-auto px-4 py-8 md:py-12">
             </main>
             ${createFooter()}
         `;
         
-        function updateThemeIcon() {
+        const updateThemeIcon = () => {
             const isDark = document.documentElement.classList.contains('dark');
-            const icon = isDark
+            const icon = isDark 
                 ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m8.66-13.66l-.7.7M4.34 19.66l-.7.7M21 12h-1M3 12H2m16.66 7.66l-.7-.7M4.34 4.34l-.7-.7" /></svg>`
                 : `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 118.646 3.646 7 7 0 0020.354 15.354z" /></svg>`;
-            const iconSpan = $('#theme-icon');
-            if (iconSpan) iconSpan.innerHTML = icon;
-        }
+            $('#theme-icon-container').innerHTML = icon;
+        };
 
         $('#theme-switcher').addEventListener('click', () => {
             appState.theme = appState.theme === 'light' ? 'dark' : 'light';
@@ -801,7 +826,7 @@
             localStorage.setItem('theme', appState.theme);
             updateThemeIcon();
         });
-
+        
         updateThemeIcon();
         
         window.addEventListener('hashchange', router);
