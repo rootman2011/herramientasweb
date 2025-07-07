@@ -572,16 +572,24 @@
         `;
         
         // Attach persistent listeners (theme switcher)
-        $('#theme-switcher').addEventListener('click', () => {
-            appState.theme = appState.theme === 'light' ? 'dark' : 'light';
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', appState.theme);
-            // Re-render header to update icon
-            const headerHTML = createHeader();
-            $('header').outerHTML = headerHTML;
-            // Must re-attach listener after re-render
-            $('#theme-switcher').addEventListener('click', arguments.callee);
-        });
+        function updateThemeIcon() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const icon = isDark
+        ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m8.66-13.66l-.7.7M4.34 19.66l-.7.7M21 12h-1M3 12H2m16.66 7.66l-.7-.7M4.34 4.34l-.7-.7" /></svg>`
+        : `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 118.646 3.646 7 7 0 0020.354 15.354z" /></svg>`;
+    const iconSpan = document.getElementById('theme-icon');
+    if (iconSpan) iconSpan.innerHTML = icon;
+}
+
+$('#theme-switcher').addEventListener('click', () => {
+    appState.theme = appState.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', appState.theme);
+    updateThemeIcon();
+});
+
+// Al cargar la página, asegúrate de que el ícono refleje el tema
+updateThemeIcon();
         
         // Handle routing
         window.addEventListener('hashchange', router);
