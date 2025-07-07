@@ -1,6 +1,6 @@
 {
-  "name": "Herramientas Web, Finanzas y Más",
-  "description": "Una colección de herramientas web útiles, calculadoras financieras y otros recursos para simplificar tus tareas diarias. La aplicación está diseñada para ser una ventanilla única para diversas utilidades online.",
+  "name": "Herramientas Web, Finanzas y Más (SPA)",
+  "description": "Una aplicación de página única (SPA) que contiene una colección de herramientas web útiles, calculadoras financieras y otros recursos. La aplicación simula múltiples páginas utilizando un enrutador basado en hash y carga el contenido dinámicamente, todo dentro de un único archivo HTML.",
   "requestFramePermissions": [],
   "prompt": ""
 }
