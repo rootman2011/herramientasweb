@@ -44,6 +44,14 @@
         min-height: calc(100vh - 64px - 85px); /* Full height minus header and footer */
     }
   </style>
+  .resultado-area {
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 100%;
+  display: block;
+  font-size: clamp(1rem, 2vw, 2rem);
+  user-select: all;
+}
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -340,7 +348,7 @@
             const dynamicSizes = { viewBox: `${minX - padding / 2} ${minY - padding / 2} ${viewBoxWidth} ${viewBoxHeight}`, handleRadius: viewBoxWidth * 0.018, strokeWidth: viewBoxWidth * 0.004, fontSize: mainFontSize, labelFontSize: mainFontSize * 0.65 };
 
             // Render static HTML shell
-            const infoCard = ({ title, value, unit, icon }) => `<div class="bg-base-200 rounded-xl p-4 flex items-center space-x-4 border border-secondary/50 hover:shadow-md transition-shadow"><div class="bg-base-100 p-3 rounded-full border border-secondary/50">${icon}</div><div><h3 class="text-sm font-medium text-gray-400">${title}</h3><p class="text-xl font-semibold text-base-content"><span>${value}</span> <span class="text-base font-normal text-gray-400">${unit}</span></p></div></div>`;
+            const infoCard = ({ title, value, unit, icon }) => `<div class="bg-base-200 rounded-xl p-4 flex items-center space-x-4 border border-secondary/50 hover:shadow-md transition-shadow"><div class="bg-base-100 p-3 rounded-full border border-secondary/50">${icon}</div><div><h3 class="text-sm font-medium text-gray-400">${title}</h3><p class="text-xl font-semibold text-base-content"><span>${value}</span> <span class="text-2xl font-bold text-base-content resultado-area">${value}</span></p></div></div>`;
             const iconArea = `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"></path></svg>`;
             const iconWidth = `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12h16M4 10v4m16-4v4"></path></svg>`;
             const iconLength = `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16M10 4h4m-4 16h4"></path></svg>`;
