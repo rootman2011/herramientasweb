@@ -364,7 +364,7 @@
                                 <input type="number" id="hectares-input" value="${inputValue}" placeholder="${t.hectaresPlaceholder}" class="w-full p-4 bg-base-200 border border-secondary/50 rounded-lg text-xl focus:ring-2 focus:ring-primary focus:border-primary transition duration-150 ease-in-out">
                             </div>
                             <div class="grid sm:grid-cols-3 gap-4">
-                                ${infoCard({ title: t.totalArea, value: formatNumber(area), unit: "m²", icon: iconArea })}
+                                ${infoCard({ title: t.totalArea, value: formatNumber(area), unit: "m²", icon: iconArea, cardClass: "w-[300px]" })}
                                 ${infoCard({ title: t.maxWidth, value: formatNumber(dimensions.width), unit: t.metersUnit, icon: iconWidth })}
                                 ${infoCard({ title: t.maxLength, value: formatNumber(dimensions.height), unit: t.metersUnit, icon: iconLength })}
                             </div>
