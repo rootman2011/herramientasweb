@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Herramientas Web, Finanzas y Más</title>
+  <script>
+    // Evita el FOUC (Flash Of Unstyled Content) aplicando el tema antes de que se renderice la página.
+    (function() {
+      const theme = localStorage.getItem('theme') || 'light';
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { /* Light Mode */
+      --primary: 167 79% 43%;        /* teal-500: #14b8a6 */
+      --primary-focus: 173 83% 31%;   /* teal-600: #0d9488 */
+      --secondary: 220 8% 52%;        /* gray-500: #6b7280 */
+      --base-100: 0 0% 100%;           /* white */
+      --base-200: 225 17% 96%;        /* gray-100: #f3f4f6 */
+      --base-content: 215 28% 17%;    /* gray-800: #1f2937 */
+    }
+    .dark { /* Dark Mode */
+      --primary: 167 79% 43%;        /* teal-500: #14b8a6 */
+      --primary-focus: 173 83% 31%;   /* teal-600: #0d9488 */
+      --secondary: 215 14% 34%;       /* gray-700: #374151 */
+      --base-100: 215 28% 17%;        /* gray-800: #1f2937 */
+      --base-200: 222 39% 11%;        /* gray-900: #111827 */
+      --base-content: 216 33% 97%;    /* gray-50:  #f9fafb */
+    }
+    body {
+      background-color: hsl(var(--base-200));
+      color: hsl(var(--base-content));
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': 'hsl(var(--primary))',
+            'primary-focus': 'hsl(var(--primary-focus))',
+            'secondary': 'hsl(var(--secondary))',
+            'base-100': 'hsl(var(--base-100))',
+            'base-200': 'hsl(var(--base-200))',
+            'base-content': 'hsl(var(--base-content))',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
+<script type="importmap">
+{
+  "imports": {
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.6.3",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react-router": "https://esm.sh/react-router@^7.6.3"
+  }
+}
+</script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="font-sans">
+  <div id="root"></div>
+  <script type="text/babel" src="/index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
